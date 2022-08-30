@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 int random_number;
-int n = 6;
+int n = 200000;
 int r = 1000000;
 
 struct Node
@@ -52,10 +52,8 @@ void print_Middle(struct Node *head){
   
     if (head!=NULL)
     {
-        //the only logic is to traverse the linked list with two pointers
-        //one at normal speed and other twice the speed of first
-        /*when the fast pointer reaches to the end, slow pointer will be in 
-        the middle of the linted list*/
+        //Para cada 2 passos do ponteiro2 , o ponteiro 1 da um passo,logo quando P2 chega
+        //no fim da lista, P1 vai estar no meio
         while (second_ptr != NULL && second_ptr->next != NULL)
         {
             if (second_ptr->next->next == NULL){
@@ -72,11 +70,7 @@ void print_Middle(struct Node *head){
 void deleteLinked(struct Node *head)
 {
   struct Node *temp = head;
-   // while(temp != NULL)
-   // {
-    //    printf("%d  ", temp->data);    
-      //  temp = temp->next;  
-  //  }
+
   temp=head;
   head= head->next;
   free(temp);
@@ -85,9 +79,9 @@ void deleteLinked(struct Node *head)
 int main() {
   struct Node* head = NULL;
   clock_t tic = clock();
-  srand(time(NULL));                 // do this once
+  srand(time(NULL));                
     
-  for (int i = 0; i < n; ++i) {     // do this many times
+  for (int i = 0; i < n; ++i) {     
         
         random_number = rand() % r + 1;
         push(&head, random_number);
@@ -98,13 +92,13 @@ int main() {
   printf("Tempo de geracao da lista:   %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC); 
   
   printf("Given linked list\n");
-  printList(head);
+  //printList(head);
   clock_t tic2 = clock();
   reverse(&head);
   clock_t toc2 = clock();
   printf("Tempo de inversao da lista:   %f seconds\n", (double)(toc2 - tic2) / CLOCKS_PER_SEC); 
   printf("\nLista invertida: \n");
-  printList(head);  
+  //printList(head);  
   clock_t tic3 = clock();
   print_Middle(head);
   clock_t toc3 = clock();
@@ -114,5 +108,5 @@ int main() {
   clock_t toc4 = clock();
   printf("Tempo de apagar a lista:   %f seconds\n", (double)(toc4 - tic4) / CLOCKS_PER_SEC); 
   printf("Empty list \n");
-  printList(head);
+  //printList(head);
 }
